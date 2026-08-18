@@ -1,0 +1,6 @@
+{
+  "name": "MediaDrop",
+  "description": "Professional HD Video and Audio Downloader supporting YouTube, TikTok, Facebook, Instagram and more.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
