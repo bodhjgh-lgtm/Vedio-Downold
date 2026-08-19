@@ -354,7 +354,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans text-zinc-100 relative z-10 bg-transparent">
+    <div className="min-h-screen flex flex-col font-sans text-zinc-100 relative z-10 bg-transparent overflow-x-hidden">
       {/* Crisp Full-Screen Fixed Background Wallpaper */}
       <div className="bg-fixed-container">
         <img 
@@ -377,7 +377,7 @@ export default function App() {
       />
 
       {/* Main App Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-6 sm:space-y-10 relative z-10">
+      <main className="main-container flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-6 sm:space-y-10 relative z-10 overflow-hidden">
         
         {/* Tab 1: Downloader Main UI */}
         {activeTab === 'home' && (

@@ -37,6 +37,11 @@ body {
   touch-action: manipulation;
 }
 
+#root, main, .main-container {
+  overflow-x: hidden;
+  position: relative;
+}
+
 /* GPU Hardware-Accelerated Oversized Fixed Background Container (Prevents mobile scroll jitter on Vercel) */
 .bg-fixed-container {
   position: fixed;
