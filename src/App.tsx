@@ -355,8 +355,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-zinc-100 relative z-10 bg-transparent">
-      {/* Crisp Full-Screen Background Image Wallpaper */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
+      {/* Crisp Full-Screen Fixed Background Wallpaper */}
+      <div className="bg-fixed-container">
         <img 
           src={BG_BASE64} 
           alt="" 
