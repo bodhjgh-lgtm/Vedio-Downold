@@ -355,15 +355,15 @@ export default function App() {
 
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-150 relative z-10 ${
-      isDarkMode ? 'bg-zinc-950/80 text-zinc-100' : 'bg-slate-50 text-slate-900'
+      isDarkMode ? 'bg-transparent text-zinc-100' : 'bg-slate-50/80 text-slate-900'
     }`}>
       {/* Sleek Interface Hero Overlay Background & Glowing Ambient Orbs */}
       <div 
         className="hero-bg"
         style={{
           backgroundImage: isDarkMode 
-            ? `linear-gradient(to bottom, rgba(8, 6, 18, 0.45), rgba(8, 6, 18, 0.8)), url(${bgImage})`
-            : `linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(243, 232, 255, 0.85)), url(${bgImage})`
+            ? `linear-gradient(to bottom, rgba(5, 3, 12, 0.15), rgba(5, 3, 12, 0.35)), url(${bgImage})`
+            : `linear-gradient(to bottom, rgba(255, 255, 255, 0.65), rgba(243, 232, 255, 0.8)), url(${bgImage})`
         }}
       ></div>
       <div className="glow-orb glow-orb-1"></div>
@@ -659,17 +659,16 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className={`mt-auto border-t py-8 transition-colors ${
-        isDarkMode ? 'bg-slate-950 border-slate-800/80 text-slate-400' : 'bg-white border-slate-200 text-slate-500'
+      <footer className={`mt-auto border-t py-6 transition-colors relative z-20 ${
+        isDarkMode ? 'bg-black/40 backdrop-blur-md border-white/10 text-slate-200' : 'bg-white/80 backdrop-blur-md border-slate-200 text-slate-700'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-semibold">
           <div className="flex items-center gap-2">
-            <img src={LOGO_URL} alt="Logo" className="w-5 h-5 rounded-md object-cover" />
-            <span className="font-bold text-slate-300">MediaDrop</span>
-            <span>• Developed by <strong className="text-indigo-400">X C</strong></span>
+            <img src={LOGO_URL} alt="Logo" className="w-5 h-5 rounded-md object-cover shadow border border-white/20" />
+            <span className="font-bold text-white tracking-wide">MediaDrop</span>
           </div>
 
-          <p>© {new Date().getFullYear()} MediaDrop. All rights reserved.</p>
+          <p className="text-slate-300">© {new Date().getFullYear()} MediaDrop. All rights reserved.</p>
         </div>
       </footer>
 
