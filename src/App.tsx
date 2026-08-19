@@ -355,7 +355,7 @@ export default function App() {
 
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-150 relative z-10 ${
-      isDarkMode ? 'bg-transparent text-zinc-100' : 'bg-slate-50/80 text-slate-900'
+      isDarkMode ? 'bg-transparent text-zinc-100' : 'bg-slate-950/60 text-slate-100'
     }`}>
       {/* Sleek Interface Hero Overlay Background & Glowing Ambient Orbs */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
