@@ -358,14 +358,25 @@ export default function App() {
       isDarkMode ? 'bg-transparent text-zinc-100' : 'bg-slate-50/80 text-slate-900'
     }`}>
       {/* Sleek Interface Hero Overlay Background & Glowing Ambient Orbs */}
-      <div 
-        className="hero-bg"
-        style={{
-          backgroundImage: isDarkMode 
-            ? `linear-gradient(to bottom, rgba(5, 3, 12, 0.15), rgba(5, 3, 12, 0.35)), url(${bgImage})`
-            : `linear-gradient(to bottom, rgba(255, 255, 255, 0.65), rgba(243, 232, 255, 0.8)), url(${bgImage})`
-        }}
-      ></div>
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
+        <img 
+          src={bgImage} 
+          alt="App Background Wallpaper" 
+          className="w-full h-full object-cover object-center transform scale-105 transition-opacity duration-500"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            if (target.src !== window.location.origin + '/bg.jpg') {
+              target.src = '/bg.jpg';
+            }
+          }}
+        />
+        {/* Soft atmospheric gradient tint over the image */}
+        <div className={`absolute inset-0 transition-colors duration-300 ${
+          isDarkMode 
+            ? 'bg-gradient-to-b from-black/20 via-purple-950/20 to-black/55' 
+            : 'bg-gradient-to-b from-white/40 via-purple-100/30 to-white/80'
+        }`} />
+      </div>
       <div className="glow-orb glow-orb-1"></div>
       <div className="glow-orb glow-orb-2"></div>
       <div className="glow-orb glow-orb-3"></div>
