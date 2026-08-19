@@ -326,6 +326,26 @@ export default function App() {
     }
   };
 
+  const handleUpdateDuration = (exactDuration: number) => {
+    if (!exactDuration || exactDuration <= 0) return;
+    setResult(prev => prev ? { ...prev, duration: exactDuration } : null);
+    setRecentDownloads(prev => {
+      if (prev.length === 0) return prev;
+      const updated = prev.map((item, idx) => {
+        if (idx === 0) {
+          return { ...item, duration: exactDuration };
+        }
+        return item;
+      });
+      try {
+        localStorage.setItem('mediadrop_recent_downloads', JSON.stringify(updated));
+      } catch (e) {
+        console.error("Error updating recent duration", e);
+      }
+      return updated;
+    });
+  };
+
   // Direct API media link trigger - links directly to media.url provided in each media object from API
   const handleDownloadFile = (media: MediaFormat, title: string) => {
     setDownloadingId(media.id);
@@ -566,6 +586,7 @@ export default function App() {
                 onDownloadFile={handleDownloadFile}
                 downloadingId={downloadingId}
                 initialFormatType={selectedFormatMode}
+                onUpdateDuration={handleUpdateDuration}
               />
             )}
 

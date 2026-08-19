@@ -75,29 +75,43 @@ app.get("/api/download", async (req, res) => {
       thumbnail = "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80";
     }
 
-    // Extract and normalize Duration securely
-    const rawDuration = rawData?.data?.duration || rawData?.duration || rawData?.meta?.duration || rawData?.lengthSeconds || rawData?.length_seconds || rawData?.duration_seconds || 0;
-    let duration = 0;
-    if (typeof rawDuration === 'string') {
-      if (rawDuration.includes(':')) {
-        const parts = rawDuration.split(':').map(p => parseFloat(p) || 0);
-        if (parts.length === 3) {
-          duration = parts[0] * 3600 + parts[1] * 60 + parts[2];
-        } else if (parts.length === 2) {
-          duration = parts[0] * 60 + parts[1];
-        }
-      } else {
-        duration = parseFloat(rawDuration) || 0;
+    // Helper to robustly parse video duration from various API response formats
+    const parseDuration = (raw: any): number => {
+      if (!raw) return 0;
+      if (typeof raw === 'number') {
+        if (raw > 86400 * 100) return Math.round(raw / 1000);
+        return Math.round(raw);
       }
-    } else if (typeof rawDuration === 'number') {
-      duration = rawDuration;
-    }
+      const str = String(raw).trim();
+      
+      // ISO 8601 duration format: PT1H2M30S or PT3M45S
+      if (str.toUpperCase().startsWith('PT') || str.toUpperCase().startsWith('P')) {
+        const h = str.match(/(\d+)H/i);
+        const m = str.match(/(\d+)M/i);
+        const s = str.match(/(\d+)S/i);
+        const hours = h ? parseInt(h[1], 10) : 0;
+        const mins = m ? parseInt(m[1], 10) : 0;
+        const secs = s ? parseInt(s[1], 10) : 0;
+        return hours * 3600 + mins * 60 + secs;
+      }
 
-    // Convert milliseconds to seconds if API returns duration in ms (e.g. > 24 hours / 86400s)
-    if (duration > 86400) {
-      duration = Math.floor(duration / 1000);
-    }
-    duration = Math.round(duration);
+      // HH:MM:SS or MM:SS format
+      if (str.includes(':')) {
+        const parts = str.split(':').map(p => parseFloat(p) || 0);
+        if (parts.length === 3) {
+          return Math.round(parts[0] * 3600 + parts[1] * 60 + parts[2]);
+        } else if (parts.length === 2) {
+          return Math.round(parts[0] * 60 + parts[1]);
+        }
+      }
+
+      const parsed = parseFloat(str) || 0;
+      if (parsed > 86400 * 100) return Math.round(parsed / 1000);
+      return Math.round(parsed);
+    };
+
+    const rawDuration = rawData?.data?.duration || rawData?.duration || rawData?.meta?.duration || rawData?.lengthSeconds || rawData?.length_seconds || rawData?.duration_seconds || rawData?.data?.duration_string || rawData?.duration_string || 0;
+    const duration = parseDuration(rawDuration);
 
     const platform = rawData?.meta?.platform || detectPlatform(videoUrl);
 

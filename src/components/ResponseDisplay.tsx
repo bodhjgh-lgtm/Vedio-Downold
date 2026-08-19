@@ -9,6 +9,7 @@ interface ResponseDisplayProps {
   onDownloadFile: (media: MediaFormat, title: string) => void;
   downloadingId: string | null;
   initialFormatType?: 'video' | 'audio' | 'all';
+  onUpdateDuration?: (newDuration: number) => void;
 }
 
 export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
@@ -16,7 +17,8 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
   isDarkMode,
   onDownloadFile,
   downloadingId,
-  initialFormatType = 'video'
+  initialFormatType = 'video',
+  onUpdateDuration
 }) => {
   // Default to showing interactive video preview directly when results load
   const [isPlayingPreview, setIsPlayingPreview] = useState<boolean>(true);
@@ -100,7 +102,11 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
                 onLoadedMetadata={(e) => {
                   const dur = e.currentTarget.duration;
                   if (dur && isFinite(dur) && dur > 0) {
-                    setExactVideoDuration(Math.round(dur));
+                    const rounded = Math.round(dur);
+                    setExactVideoDuration(rounded);
+                    if (onUpdateDuration) {
+                      onUpdateDuration(rounded);
+                    }
                   }
                 }}
               />
