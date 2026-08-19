@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import bgImage from './assets/bg.jpg';
+import { BG_BASE64 } from './assets/bgBase64';
 import { Navbar } from './components/Navbar';
 import { DeveloperCard } from './components/DeveloperCard';
 import { ResponseDisplay } from './components/ResponseDisplay';
@@ -358,15 +358,10 @@ export default function App() {
       {/* Crisp Full-Screen Background Image Wallpaper */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
         <img 
-          src={bgImage} 
-          alt="App Background Wallpaper" 
-          className="w-full h-full object-cover object-center transition-opacity duration-300"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            if (target.src !== window.location.origin + '/bg.jpg') {
-              target.src = '/bg.jpg';
-            }
-          }}
+          src={BG_BASE64} 
+          alt="" 
+          aria-hidden="true"
+          className="w-full h-full object-cover object-center pointer-events-none"
         />
         {/* Subtle dark tint so text is readable while wallpaper remains 100% crisp & vivid */}
         <div className="absolute inset-0 bg-black/20 pointer-events-none" />
