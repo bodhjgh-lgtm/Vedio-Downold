@@ -364,7 +364,7 @@ export default function App() {
           className="w-full h-full object-cover object-center pointer-events-none"
         />
         {/* Subtle dark tint so text is readable while wallpaper remains 100% crisp & vivid */}
-        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-purple-950/25 to-black/45 pointer-events-none" />
       </div>
       
       {/* Navigation Bar */}
