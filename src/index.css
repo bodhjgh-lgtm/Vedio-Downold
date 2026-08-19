@@ -90,38 +90,30 @@ body {
   display: none;
 }
 
-/* Optimized Glassmorphism Panels - Mobile Chrome Backdrop-Filter Compatible */
-.glass-panel {
-  background: rgba(10, 6, 24, 0.72);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-}
-
-.glass-panel-light {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
-}
-
-/* iOS 26 Liquid Glass Panels */
+/* Universal Cross-Platform Glassmorphism (Android Chrome + iPhone Safari + Desktop) */
+.glass-panel,
 .ios-glass {
-  background: rgba(10, 6, 24, 0.72);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(12, 9, 28, 0.78);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65);
 }
 
+@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
+  .glass-panel,
+  .ios-glass {
+    background: rgba(12, 9, 28, 0.68);
+  }
+}
+
+.glass-panel-light,
 .ios-glass-light {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.85);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 15px 35px -8px rgba(99, 102, 241, 0.12);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 15px 35px -8px rgba(99, 102, 241, 0.15);
 }
 
 /* Sleek Interface Primary Button */
