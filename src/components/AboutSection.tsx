@@ -26,7 +26,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         <h1 className={`text-3xl sm:text-5xl font-black font-heading tracking-tight max-w-3xl mx-auto relative z-10 ${
           isDarkMode ? 'text-white' : 'text-slate-900'
         }`}>
-          About <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_22px_rgba(129,140,248,0.9)] filter font-black">MediaDrop</span>
+          𝐀𝐛𝐨𝐮𝐭 <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_22px_rgba(129,140,248,0.9)] filter font-black">𝐌𝐞𝐝𝐢𝐚𝐃𝐫𝐨𝐩</span>
         </h1>
 
         <p className={`text-base sm:text-lg max-w-2xl mx-auto leading-relaxed ${
@@ -46,7 +46,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             <Zap className="w-6 h-6" />
           </div>
           <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            Super Fast Speeds
+            𝐒𝐮𝐩𝐞𝐫 𝐅𝐚𝐬𝐭 𝐒𝐩𝐞𝐞𝐝𝐬
           </h3>
           <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             Direct multi-threaded download proxies bypass bandwidth throttling to deliver 4K and 1080p media at top connection speeds.
@@ -60,7 +60,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             <Lock className="w-6 h-6" />
           </div>
           <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            Protected & Obfuscated API
+            𝐏𝐫𝐨𝐭𝐞𝐜𝐭𝐞𝐝 & 𝐎𝐛𝐟𝐮𝐬𝐜𝐚𝐭𝐞𝐝 𝐀𝐏𝐈
           </h3>
           <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             Server-side token proxy masks upstream API credentials completely so source code inspection remains secure without exposing endpoints.
@@ -74,7 +74,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             <Globe2 className="w-6 h-6" />
           </div>
           <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            Universal Platform Support
+            𝐔𝐧𝐢𝐯𝐞𝐫𝐬𝐚𝐥 𝐏𝐥𝐚𝐭𝐟𝐨𝐫𝐦 𝐒𝐮𝐩𝐩𝐨𝐫𝐭
           </h3>
           <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             Seamlessly fetch media from YouTube, Facebook Reels, Instagram Posts, TikTok (No Watermark), Twitter / X, Vimeo, and sound platforms.
@@ -88,7 +88,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         isDarkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200 shadow-lg'
       }`}>
         <h2 className={`text-2xl font-extrabold font-heading ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-          Engine Specifications
+          𝐄𝐧𝐠𝐢𝐧𝐞 𝐒𝐩𝐞𝐜𝐢𝐟𝐢𝐜𝐚𝐭𝐢𝐨𝐧𝐬
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

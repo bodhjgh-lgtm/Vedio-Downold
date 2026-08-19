@@ -400,14 +400,14 @@ export default function App() {
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl object-cover shadow-lg border border-white/20"
                   />
                   <span className="px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-extrabold text-[11px] sm:text-xs tracking-wider uppercase">
-                    Free Ultra-Fast HD Downloader
+                    𝐅𝐑𝐄𝐄 𝐔𝐋𝐓𝐑𝐀-𝐅𝐀𝐒𝐓 𝐇𝐃 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑
                   </span>
                 </div>
 
                 <h1 className={`text-2xl sm:text-4xl md:text-5xl font-black tracking-tight font-heading leading-tight ${
                   isDarkMode ? 'text-white' : 'text-slate-900'
                 }`}>
-                  Download High Quality <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Video & Audio Assets</span>
+                  𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐇𝐢𝐠𝐡 𝐐𝐮𝐚𝐥𝐢𝐭𝐲 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">𝐕𝐢𝐝𝐞𝐨 & 𝐀𝐮𝐝𝐢𝐨 𝐀𝐬𝐬𝐞𝐭𝐬</span>
                 </h1>
 
                 <p className={`text-xs sm:text-base max-w-xl mx-auto ${
@@ -430,7 +430,7 @@ export default function App() {
                   }`}
                 >
                   <Video className="w-4 h-4 text-indigo-300" />
-                  <span>Video</span>
+                  <span>𝐕𝐢𝐝𝐞𝐨</span>
                 </button>
 
                 <button
@@ -443,7 +443,7 @@ export default function App() {
                   }`}
                 >
                   <Zap className="w-4 h-4 text-purple-300" />
-                  <span>Audio MP3</span>
+                  <span>𝐀𝐮𝐝𝐢𝐨 𝐌𝐏𝟑</span>
                 </button>
 
                 <button
@@ -455,7 +455,7 @@ export default function App() {
                       : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <span>All Formats</span>
+                  <span>𝐀𝐥𝐥 𝐅𝐨𝐫𝐦𝐚𝐭𝐬</span>
                 </button>
               </div>
 
@@ -505,7 +505,7 @@ export default function App() {
                       }`}
                     >
                       <Clipboard className="w-3.5 h-3.5" />
-                      <span>Paste</span>
+                      <span>𝐏𝐚𝐬𝐭𝐞</span>
                     </button>
 
                     <button
@@ -516,12 +516,12 @@ export default function App() {
                       {isLoading ? (
                         <>
                           <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
-                          <span>Fetching...</span>
+                          <span>𝐅𝐞𝐭𝐜𝐡𝐢𝐧𝐠...</span>
                         </>
                       ) : (
                         <>
                           <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                          <span>DOWNLOAD</span>
+                          <span>𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃</span>
                         </>
                       )}
                     </button>
@@ -535,7 +535,7 @@ export default function App() {
                   <div className="flex justify-between items-center text-xs font-semibold text-indigo-400">
                     <span className="flex items-center gap-1.5">
                       <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                      Analysing & Parsing Media Formats...
+                      𝐀𝐧𝐚𝐥𝐲𝐬𝐢𝐧𝐠 & 𝐏𝐚𝐫𝐬𝐢𝐧𝐠 𝐌𝐞𝐝𝐢𝐚 𝐅𝐨𝐫𝐦𝐚𝐭𝐬...
                     </span>
                     <span className="font-mono">{loadingProgress}%</span>
                   </div>
@@ -575,7 +575,7 @@ export default function App() {
             }`}>
               <div className="text-center space-y-1">
                 <h3 className={`text-lg font-bold font-heading ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                  Supported Social & Video Platforms
+                  𝐒𝐮𝐩𝐩𝐨𝐫𝐭𝐞𝐝 𝐒𝐨𝐜𝐢𝐚𝐥 & 𝐕𝐢𝐝𝐞𝐨 𝐏𝐥𝐚𝐭𝐟𝐨𝐫𝐦𝐬
                 </h3>
                 <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                   MediaDrop supports downloading MP4 & MP3 from popular video platforms globally

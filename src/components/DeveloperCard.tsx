@@ -51,7 +51,7 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
         {/* Developer Name & Twitter Verified Blue Badge */}
         <div className="flex items-center justify-center gap-2 mb-6">
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white font-heading">
-            Developer <span className="text-white font-black">{DEVELOPER_DETAILS.name}</span>
+            𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 <span className="text-white font-black">{DEVELOPER_DETAILS.name}</span>
           </h2>
           <svg className="w-7 h-7 flex-shrink-0" viewBox="0 0 24 24" fill="none">
             <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.45-1.53.02-3.2-1.125-4.34-1.14-1.145-2.81-1.575-4.34-1.125C14.24 2.17 12.87 1.3 11.29 1.3c-1.58 0-2.95.87-3.6 2.14-1.53-.45-3.2-.02-4.34 1.125-1.145 1.14-1.575 2.81-1.125 4.34C1.3 9.55.43 10.92.43 12.5c0 1.58.87 2.95 2.148 3.6-.45 1.53-.02 3.2 1.125 4.34 1.14 1.145 2.81 1.575 4.34 1.125.65 1.27 2.02 2.14 3.6 2.14 1.58 0 2.95-.87 3.6-2.14 1.53.45 3.2.02 4.34-1.125 1.145-1.14 1.575-2.81 1.125-4.34 1.273-.65 2.148-2.02 2.148-3.6z" fill="#1d9bf0" />
@@ -72,8 +72,8 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
               <TelegramPlaneIcon className="w-4 h-4 text-white" />
             </div>
             <div className="flex flex-col items-start leading-tight">
-              <span className="text-[10px] font-black uppercase tracking-wider opacity-90">CONTACT DEVELOPER</span>
-              <span className="text-sm font-black">T.me/orviXxxx</span>
+              <span className="text-[10px] font-black uppercase tracking-wider opacity-90">𝐂𝐎𝐍𝐓𝐀𝐂𝐓 𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐑</span>
+              <span className="text-sm font-black">𝐓.𝐦𝐞/𝐨𝐫𝐯𝐢𝐗𝐱𝐱𝐱</span>
             </div>
           </a>
 
@@ -89,8 +89,8 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
                 <TelegramPlaneIcon className="w-4 h-4 text-[#28a8ea]" />
               </div>
               <div className="flex flex-col items-start leading-tight">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#28a8ea]">DEVELOPER CHANNEL</span>
-                <span className="text-sm font-black text-white">tech_master_a2z</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#28a8ea]">𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐑 𝐂𝐇𝐀𝐍𝐍𝐄𝐋</span>
+                <span className="text-sm font-black text-white">𝐭𝐞𝐜𝐡_𝐦𝐚𝐬𝐭𝐞𝐫_𝐚𝟐𝐳</span>
               </div>
             </div>
             <ExternalLink className="w-4 h-4 text-[#28a8ea]" />
@@ -108,7 +108,7 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
               <TelegramPlaneIcon className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h3 className="text-xl font-black text-white font-heading">Tech Master A2Z</h3>
+              <h3 className="text-xl font-black text-white font-heading">𝐓𝐞𝐜𝐡 𝐌𝐚𝐬𝐭𝐞𝐫 𝐀𝟐𝐙</h3>
               <a 
                 href={DEVELOPER_DETAILS.telegramChannel} 
                 target="_blank" 
@@ -121,7 +121,7 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
           </div>
 
           <span className="px-3.5 py-1 rounded-full bg-[#132742] border border-[#28a8ea]/30 text-[#28a8ea] font-extrabold text-[10px] tracking-wider uppercase">
-            OFFICIAL CHANNEL
+            𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐂𝐇𝐀𝐍𝐍𝐄𝐋
           </span>
         </div>
 
@@ -136,7 +136,7 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
           className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#28a8ea] to-[#1e88e5] hover:opacity-95 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#28a8ea]/25 transition-all duration-200 active:scale-95"
         >
           <TelegramPlaneIcon className="w-4 h-4 text-white" />
-          <span>Join Telegram Channel Now</span>
+          <span>𝐉𝐨𝐢𝐧 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 𝐍𝐨𝐰</span>
           <ExternalLink className="w-4 h-4 ml-1" />
         </a>
       </div>
@@ -150,13 +150,13 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
               <MessageSquare className="w-6 h-6 text-[#a855f7]" />
             </div>
             <div>
-              <h3 className="text-xl sm:text-2xl font-black text-white font-heading">Direct Telegram Support</h3>
+              <h3 className="text-xl sm:text-2xl font-black text-white font-heading">𝐃𝐢𝐫𝐞𝐜𝐭 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦 𝐒𝐮𝐩𝐩𝐨𝐫𝐭</h3>
               <p className="text-xs font-bold text-[#c084fc]">@orviXxxx</p>
             </div>
           </div>
 
           <span className="px-3.5 py-1 rounded-full bg-[#27153b] border border-purple-500/30 text-[#c084fc] font-extrabold text-[10px] tracking-wider uppercase">
-            24/7 CONTACT
+            𝟐𝟒/𝟕 𝐂𝐎𝐍𝐓𝐀𝐂𝐓
           </span>
         </div>
 
@@ -171,7 +171,7 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
           className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#7e22ce] via-[#9333ea] to-[#a855f7] hover:opacity-95 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-900/40 transition-all duration-200 active:scale-95"
         >
           <TelegramPlaneIcon className="w-4 h-4 text-white" />
-          <span>Send Message: T.me/orviXxxx</span>
+          <span>𝐒𝐞𝐧𝐝 𝐌𝐞𝐬𝐬𝐚𝐠𝐞: 𝐓.𝐦𝐞/𝐨𝐫𝐯𝐢𝐗𝐱𝐱𝐱</span>
         </a>
       </div>
 

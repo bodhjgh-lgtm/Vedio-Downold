@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ? 'text-white' 
                 : 'text-slate-900'
             }`}>
-              MediaDrop
+              𝐌𝐞𝐝𝐢𝐚𝐃𝐫𝐨𝐩
             </span>
           </div>
 
