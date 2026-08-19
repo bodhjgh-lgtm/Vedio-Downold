@@ -14,16 +14,19 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   return (
     <div className="space-y-12 animate-in fade-in duration-500 max-w-5xl mx-auto">
       
-      {/* Hero Header */}
-      <div className={`text-center space-y-4 p-8 sm:p-12 rounded-3xl relative overflow-hidden transition-all duration-300 ${
+      {/* Hero Header Card with glowing title aura and explicit border */}
+      <div className={`text-center space-y-4 p-8 sm:p-12 rounded-3xl relative overflow-hidden transition-all duration-300 border-2 ${
         isDarkMode 
-          ? 'glass shadow-2xl' 
-          : 'bg-gradient-to-b from-indigo-50/50 via-white to-slate-50 border border-slate-200 shadow-xl'
+          ? 'bg-slate-900/80 border-indigo-500/40 shadow-2xl shadow-indigo-500/20 backdrop-blur-xl' 
+          : 'bg-white/90 border-slate-300 shadow-xl backdrop-blur-xl'
       }`}>
-        <h1 className={`text-3xl sm:text-5xl font-black font-heading tracking-tight max-w-3xl mx-auto ${
+        {/* Soft Luminous Glowing Ambient Aura behind Title */}
+        <div className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 w-4/5 sm:w-2/3 h-20 bg-gradient-to-r from-blue-500/30 via-indigo-500/40 to-purple-500/30 blur-2xl rounded-full pointer-events-none animate-pulse"></div>
+
+        <h1 className={`text-3xl sm:text-5xl font-black font-heading tracking-tight max-w-3xl mx-auto relative z-10 ${
           isDarkMode ? 'text-white' : 'text-slate-900'
         }`}>
-          About <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 bg-clip-text text-transparent">MediaDrop</span>
+          About <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_22px_rgba(129,140,248,0.9)] filter font-black">MediaDrop</span>
         </h1>
 
         <p className={`text-base sm:text-lg max-w-2xl mx-auto leading-relaxed ${

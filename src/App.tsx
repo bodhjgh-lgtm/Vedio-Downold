@@ -4,6 +4,7 @@ import { DeveloperCard } from './components/DeveloperCard';
 import { ResponseDisplay } from './components/ResponseDisplay';
 import { AboutSection } from './components/AboutSection';
 import { RecentDownloads } from './components/RecentDownloads';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { ToastContainer } from './components/Toast';
 import { YouTubeLogo, FacebookLogo, InstagramLogo, TikTokLogo } from './components/PlatformLogos';
 import { MediaResult, MediaFormat, ToastMessage, HistoryItem, DEVELOPER_DETAILS, LOGO_URL } from './types';
@@ -27,7 +28,7 @@ import {
 const SAMPLE_URL = "https://youtu.be/YxJjFjP0crs?si=nY7Ykt84tdS3Si1s";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'home' | 'about' | 'developer'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'history' | 'about' | 'developer'>('home');
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   
   const [videoUrl, setVideoUrl] = useState<string>('');
@@ -76,6 +77,7 @@ export default function App() {
 
   const handleSelectRecentUrl = (url: string) => {
     setVideoUrl(url);
+    setActiveTab('home');
     if (urlInputRef.current) {
       urlInputRef.current.focus();
     }
@@ -150,10 +152,11 @@ export default function App() {
     addToast("Browser blocked clipboard access. Long-press input box to paste.", "info");
   };
 
-  // Main video download request handler
+  // Main video download request handler with fail-safe Vercel dual-layer fallback
   const handleFetchMedia = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!videoUrl.trim()) {
+    const cleanUrl = videoUrl.trim();
+    if (!cleanUrl) {
       setErrorMsg("Please paste or type a valid video URL.");
       return;
     }
@@ -175,14 +178,112 @@ export default function App() {
     }, 250);
 
     try {
-      // Call server proxy endpoint to obscure API logic securely
-      const response = await fetch(`/api/download?url=${encodeURIComponent(videoUrl.trim())}`);
-      const data = await response.json();
+      let data: any = null;
+      let fetchSuccess = false;
+
+      // 1. First attempt: local server or Vercel serverless proxy endpoint
+      try {
+        const proxyRes = await fetch(`/api/download?url=${encodeURIComponent(cleanUrl)}`);
+        const contentType = proxyRes.headers.get("content-type") || "";
+        if (proxyRes.ok && contentType.includes("application/json")) {
+          const json = await proxyRes.json();
+          if (json && json.success) {
+            data = json;
+            fetchSuccess = true;
+          }
+        }
+      } catch (proxyErr) {
+        console.warn("Server proxy endpoint unavailable, switching to client API fallback...", proxyErr);
+      }
+
+      // 2. Second attempt (Fallback): Direct client API call for static Vercel builds
+      if (!fetchSuccess) {
+        const directApiUrl = `https://r-gengpt-api.vercel.app/api/video/download?url=${encodeURIComponent(cleanUrl)}`;
+        const directRes = await fetch(directApiUrl, {
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (directRes.ok) {
+          const rawData = await directRes.json();
+
+          let title = rawData?.data?.title || rawData?.title || rawData?.meta?.title || "Extracted Media Video";
+          let thumbnail = rawData?.data?.thumbnail || rawData?.thumbnail || rawData?.meta?.thumbnail || "";
+
+          const ytMatch = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+          if (!thumbnail && ytMatch) {
+            thumbnail = `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`;
+          }
+          if (!thumbnail) {
+            thumbnail = "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80";
+          }
+
+          let extractedMedias: any[] = [];
+          if (Array.isArray(rawData?.data?.medias) && rawData.data.medias.length > 0) {
+            extractedMedias = rawData.data.medias;
+          } else if (Array.isArray(rawData?.medias) && rawData.medias.length > 0) {
+            extractedMedias = rawData.medias;
+          } else if (Array.isArray(rawData?.formats) && rawData.formats.length > 0) {
+            extractedMedias = rawData.formats;
+          } else if (Array.isArray(rawData?.data?.links) && rawData.data.links.length > 0) {
+            extractedMedias = rawData.data.links;
+          } else if (rawData?.data?.url && typeof rawData.data.url === 'string' && rawData.data.url.startsWith('http')) {
+            extractedMedias = [
+              { label: "Direct Download Stream (MP4)", quality: "HD Video", url: rawData.data.url, ext: "mp4", type: "video" }
+            ];
+          }
+
+          const validItems = extractedMedias.filter((m: any) => {
+            if (!m || !m.url || typeof m.url !== 'string') return false;
+            const lower = m.url.toLowerCase();
+            return lower.startsWith('http') && !lower.includes('youtube.com/watch') && !lower.includes('youtu.be/');
+          });
+
+          if (validItems.length > 0) {
+            const cleanMedias = validItems.map((m: any, index: number) => {
+              const isVideoType = m.type === "video";
+              const isAudio = !isVideoType && Boolean(m.is_audio || m.isAudio || m.type === "audio" || m.ext === "mp3" || m.extension === "mp3");
+              const ext = (m.ext || m.extension || (isAudio ? "mp3" : "mp4")).toLowerCase();
+              const rawQuality = m.quality || m.qualityLabel || m.format_note || m.format || (isAudio ? "Audio Stream" : "Video Stream");
+              const displayLabel = m.label || rawQuality;
+
+              return {
+                id: `f_${index}_${m.formatId || index}`,
+                formatId: m.formatId || index,
+                label: displayLabel,
+                quality: rawQuality,
+                type: isAudio ? "audio" : "video",
+                ext: ext,
+                url: m.url,
+                width: m.width || null,
+                height: m.height || null,
+                bitrate: m.bitrate || null,
+                fps: m.fps || null,
+                mimeType: m.mimeType || null,
+                formattedSize: m.formattedSize || m.size || null,
+                isAudio: isAudio,
+              };
+            });
+
+            data = {
+              success: true,
+              title: title,
+              thumbnail: thumbnail,
+              duration: rawData?.data?.duration || rawData?.duration || 0,
+              platform: rawData?.meta?.platform || "Media",
+              originalUrl: cleanUrl,
+              medias: cleanMedias,
+            };
+            fetchSuccess = true;
+          }
+        }
+      }
 
       clearInterval(progressInterval);
       setLoadingProgress(100);
 
-      if (response.ok && data.success) {
+      if (fetchSuccess && data) {
         setResult(data);
         addToast("Media download links extracted successfully!", "success");
 
@@ -192,12 +293,13 @@ export default function App() {
           title: data.title || "Downloaded Video",
           thumbnail: data.thumbnail || "",
           platform: data.platform || "Media",
-          url: videoUrl.trim(),
+          url: cleanUrl,
           timestamp: Date.now(),
+          duration: data.duration || 0,
         };
 
         setRecentDownloads((prev) => {
-          const filtered = prev.filter((i) => i.url.toLowerCase() !== videoUrl.trim().toLowerCase());
+          const filtered = prev.filter((i) => i.url.toLowerCase() !== cleanUrl.toLowerCase());
           const updated = [newItem, ...filtered].slice(0, 5);
           try {
             localStorage.setItem('mediadrop_recent_downloads', JSON.stringify(updated));
@@ -207,13 +309,13 @@ export default function App() {
           return updated;
         });
       } else {
-        const msg = data.message || "Unable to extract video links. Please verify the link is public.";
+        const msg = "Unable to extract direct video stream links. Please check if the video URL is public.";
         setErrorMsg(msg);
         addToast(msg, "error");
       }
     } catch (err: any) {
       clearInterval(progressInterval);
-      const msg = "Network or server timeout. Please check your connection and try again.";
+      const msg = "Network error while connecting to media extraction API. Please try again.";
       setErrorMsg(msg);
       addToast(msg, "error");
     } finally {
@@ -251,11 +353,14 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 relative z-10 ${
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-150 relative z-10 ${
       isDarkMode ? 'bg-zinc-950/80 text-zinc-100' : 'bg-slate-50 text-slate-900'
     }`}>
-      {/* Sleek Interface Hero Overlay Background */}
+      {/* Sleek Interface Hero Overlay Background & Glowing Ambient Orbs */}
       <div className="hero-bg"></div>
+      <div className="glow-orb glow-orb-1"></div>
+      <div className="glow-orb glow-orb-2"></div>
+      <div className="glow-orb glow-orb-3"></div>
       
       {/* Navigation Bar */}
       <Navbar
@@ -263,6 +368,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
+        recentCount={recentDownloads.length}
       />
 
       {/* Main App Container */}
@@ -270,10 +376,10 @@ export default function App() {
         
         {/* Tab 1: Downloader Main UI */}
         {activeTab === 'home' && (
-          <div className="space-y-6 sm:space-y-10 animate-in fade-in duration-300">
+          <div className="space-y-6 sm:space-y-10 animate-in fade-in duration-200">
             
             {/* Input Hero Banner - Primary Focus on Mobile */}
-            <div className={`p-4 sm:p-10 relative overflow-hidden transition-all duration-300 rounded-3xl ${
+            <div className={`p-4 sm:p-10 relative overflow-hidden transition-colors duration-150 rounded-3xl ${
               isDarkMode 
                 ? 'ios-glass' 
                 : 'ios-glass-light shadow-2xl shadow-indigo-500/10'
@@ -458,17 +564,6 @@ export default function App() {
               />
             )}
 
-            {/* Recent Downloads Section stored in localStorage */}
-            {recentDownloads.length > 0 && (
-              <RecentDownloads
-                items={recentDownloads}
-                isDarkMode={isDarkMode}
-                onSelectUrl={handleSelectRecentUrl}
-                onClearHistory={handleClearHistory}
-                onRemoveItem={handleRemoveRecentItem}
-              />
-            )}
-
             {/* Supported Sites Badge Grid with Real Authentic Platform Logos */}
             <div className={`rounded-3xl p-6 sm:p-8 border space-y-4 ${
               isDarkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200 shadow-md'
@@ -505,6 +600,40 @@ export default function App() {
           </div>
         )}
 
+        {/* Tab 2: Recent History Tab View */}
+        {activeTab === 'history' && (
+          <div className="animate-in fade-in duration-300 max-w-4xl mx-auto space-y-6">
+            {recentDownloads.length > 0 ? (
+              <RecentDownloads
+                items={recentDownloads}
+                isDarkMode={isDarkMode}
+                onSelectUrl={handleSelectRecentUrl}
+                onClearHistory={handleClearHistory}
+                onRemoveItem={handleRemoveRecentItem}
+              />
+            ) : (
+              <div className={`p-8 sm:p-12 text-center rounded-3xl border ${
+                isDarkMode ? 'ios-glass text-white' : 'ios-glass-light text-slate-900 shadow-xl'
+              }`}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                  <Clock className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold font-heading mb-2">No Download History Yet</h3>
+                <p className={`text-sm max-w-md mx-auto mb-6 ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                  Paste any video or audio link on the home page and fetch it to build your recent downloads history.
+                </p>
+                <button
+                  onClick={() => setActiveTab('home')}
+                  className="px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-sm shadow-lg hover:shadow-indigo-500/30 active:scale-95 transition-all inline-flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Go to Downloader</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Tab 2: About Section */}
         {activeTab === 'about' && (
           <AboutSection
@@ -536,7 +665,8 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Toast Notification Container */}
+      {/* Offline Indicator & Toast Notification Container */}
+      <OfflineIndicator isDarkMode={isDarkMode} />
       <ToastContainer toasts={toasts} onDismiss={removeToast} isDarkMode={isDarkMode} />
     </div>
   );

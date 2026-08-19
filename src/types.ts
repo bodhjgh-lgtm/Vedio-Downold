@@ -29,6 +29,7 @@ export interface HistoryItem {
   platform: string;
   url: string;
   timestamp: number;
+  duration?: number;
 }
 
 export interface DeveloperInfo {

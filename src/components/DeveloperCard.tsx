@@ -18,17 +18,32 @@ export const DeveloperCard: React.FC<DeveloperCardProps> = () => {
     <div className="space-y-6 max-w-xl mx-auto font-sans">
       
       {/* 1. Main Hero Developer XC Card (Pixel-perfect clone) */}
-      <div className="p-8 sm:p-10 rounded-3xl relative overflow-hidden transition-all duration-300 border border-slate-800/80 bg-[#0c1427] flex flex-col items-center text-center shadow-2xl">
+      <div className="p-8 sm:p-10 rounded-3xl relative overflow-hidden transition-all duration-300 border border-[#28a8ea]/30 bg-[#0c1427] flex flex-col items-center text-center shadow-2xl">
         {/* Glow Radial Background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#28a8ea]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#28a8ea]/15 rounded-full blur-3xl pointer-events-none"></div>
 
-        {/* Profile Picture with Glowing Cyan-Purple Border Ring */}
-        <div className="relative mb-6">
-          <div className="p-1 rounded-full bg-gradient-to-tr from-[#a855f7] via-[#28a8ea] to-[#3b82f6] shadow-xl shadow-[#28a8ea]/30">
+        {/* Soaring Animated Telegram Paper Planes Flying Across like Airplanes */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          <TelegramPlaneIcon className="w-14 h-14 text-[#28a8ea]/60 absolute telegram-fly-soar-1 filter drop-shadow-[0_0_8px_rgba(40,168,234,0.8)]" />
+          <TelegramPlaneIcon className="w-10 h-10 text-[#a855f7]/70 absolute telegram-fly-soar-2 filter drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+          <TelegramPlaneIcon className="w-12 h-12 text-[#3b82f6]/65 absolute telegram-fly-soar-3 filter drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+          
+          <TelegramPlaneIcon className="w-8 h-8 text-[#28a8ea]/30 absolute top-4 left-6 telegram-plane-anim-1" />
+          <TelegramPlaneIcon className="w-10 h-10 text-[#a855f7]/35 absolute bottom-8 right-6 telegram-plane-anim-2" />
+        </div>
+
+        {/* Profile Picture with Glowing Cyan-Purple Animated Telegram Border Ring */}
+        <div className="relative mb-6 group">
+          {/* Animated Floating Telegram Plane behind avatar border */}
+          <div className="absolute -top-3 -right-3 z-10 p-1.5 rounded-full bg-[#28a8ea] text-white shadow-lg shadow-[#28a8ea]/50 animate-bounce">
+            <TelegramPlaneIcon className="w-4 h-4 text-white" />
+          </div>
+
+          <div className="p-1 rounded-full bg-gradient-to-tr from-[#a855f7] via-[#28a8ea] to-[#3b82f6] telegram-border-glow">
             <img 
               src={DEVELOPER_DETAILS.profilePic} 
               alt={DEVELOPER_DETAILS.name} 
-              className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-[#0c1427]"
+              className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-[#0c1427] relative z-0"
             />
           </div>
         </div>

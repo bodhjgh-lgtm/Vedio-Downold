@@ -21,6 +21,7 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
   // Default to showing interactive video preview directly when results load
   const [isPlayingPreview, setIsPlayingPreview] = useState<boolean>(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [exactVideoDuration, setExactVideoDuration] = useState<number | null>(null);
   const [activeMediaTab, setActiveMediaTab] = useState<'video' | 'audio' | 'all'>(initialFormatType);
 
   const videoFormats = data.medias.filter(m => !m.isAudio && m.type !== 'audio');
@@ -32,11 +33,29 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const formatDuration = (sec: number) => {
-    if (!sec) return 'N/A';
-    const mins = Math.floor(sec / 60);
-    const secs = sec % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  const formatDuration = (val: number | string | undefined | null) => {
+    if (!val) return '';
+    if (typeof val === 'string' && val.includes(':')) return val.trim();
+
+    let num = typeof val === 'number' ? val : parseFloat(String(val).replace(/[^0-9.]/g, ''));
+    if (isNaN(num) || num <= 0) return '';
+
+    // Convert milliseconds to seconds if value > 24 hours (86400s)
+    if (num > 86400) {
+      num = Math.floor(num / 1000);
+    }
+    num = Math.round(num);
+
+    const hours = Math.floor(num / 3600);
+    const minutes = Math.floor((num % 3600) / 60);
+    const seconds = num % 60;
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    if (hours > 0) {
+      const paddedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      return `${hours}:${paddedMinutes}:${paddedSeconds}`;
+    }
+    return `${minutes}:${paddedSeconds}`;
   };
 
   // Extract YouTube ID if available
@@ -78,6 +97,12 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
                 autoPlay
                 poster={data.thumbnail}
                 className="w-full h-full object-contain bg-black rounded-2xl"
+                onLoadedMetadata={(e) => {
+                  const dur = e.currentTarget.duration;
+                  if (dur && isFinite(dur) && dur > 0) {
+                    setExactVideoDuration(Math.round(dur));
+                  }
+                }}
               />
             ) : (
               <div className="text-white text-xs p-4 text-center">Preview not streamable directly</div>
@@ -105,10 +130,10 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
                 <span>{data.platform}</span>
               </div>
 
-              {data.duration > 0 && (
+              {(exactVideoDuration || data.duration > 0) && (
                 <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/90 text-white font-mono text-xs font-medium flex items-center gap-1.5 border border-white/10">
                   <Clock className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>{formatDuration(data.duration)}</span>
+                  <span>{formatDuration(exactVideoDuration || data.duration)}</span>
                 </div>
               )}
             </>

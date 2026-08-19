@@ -13,11 +13,23 @@
   }
 }
 
+/* Optimized Performance & GPU Hardware Acceleration */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg);
   color: #f4f4f5;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Instant smooth theme transition utility */
+.theme-fast {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
 /* Shrink animation for toast timer */
@@ -26,22 +38,86 @@ body {
   to { width: 0%; }
 }
 
-/* Background image with subtle overlay from Sleek Interface design */
+/* Animated Floating Glowing Background Orbs - GPU Accelerated */
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate3d(0px, 0px, 0) scale(1); }
+  50% { transform: translate3d(30px, -40px, 0) scale(1.1); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate3d(0px, 0px, 0) scale(1); }
+  50% { transform: translate3d(-40px, 30px, 0) scale(1.15); }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate3d(0px, 0px, 0) scale(1); }
+  50% { transform: translate3d(20px, 40px, 0) scale(1.08); }
+}
+
+.glow-orb {
+  position: fixed;
+  border-radius: 9999px;
+  filter: blur(50px);
+  -webkit-filter: blur(50px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  transition: opacity 0.2s ease;
+}
+
+.glow-orb-1 {
+  width: 450px;
+  height: 450px;
+  top: -80px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.5) 0%, rgba(126, 34, 206, 0.25) 60%, transparent 80%);
+  animation: floatOrb1 20s ease-in-out infinite;
+}
+
+.glow-orb-2 {
+  width: 480px;
+  height: 480px;
+  top: 35%;
+  right: -120px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(79, 70, 229, 0.25) 60%, transparent 80%);
+  animation: floatOrb2 24s ease-in-out infinite;
+}
+
+.glow-orb-3 {
+  width: 400px;
+  height: 400px;
+  bottom: -80px;
+  left: 20%;
+  background: radial-gradient(circle, rgba(192, 38, 211, 0.4) 0%, rgba(99, 102, 241, 0.25) 60%, transparent 80%);
+  animation: floatOrb3 22s ease-in-out infinite;
+}
+
+/* Light mode adjustment for glowing background orbs */
+html:not(.dark) .glow-orb {
+  opacity: 0.5;
+}
+
+/* Background image with GPU hardware acceleration */
 .hero-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: linear-gradient(rgba(9, 9, 11, 0.85), rgba(9, 9, 11, 0.95)), url('https://i.postimg.cc/MGb3qpdT/Gemini-Generated-Image-mm5fkfmm5fkfmm5f.jpg');
+  background-image: linear-gradient(to bottom, rgba(8, 6, 18, 0.45), rgba(8, 6, 18, 0.8)), url('./assets/bg.jpg');
   background-size: cover;
   background-position: center;
-  filter: grayscale(20%);
+  background-repeat: no-repeat;
   pointer-events: none;
+  will-change: opacity;
+  transform: translateZ(0);
+  transition: opacity 0.2s ease;
 }
 
 html:not(.dark) .hero-bg {
-  background-image: radial-gradient(circle at 10% 20%, rgba(219, 234, 254, 0.8) 0%, rgba(243, 232, 255, 0.6) 50%, rgba(224, 231, 255, 0.7) 100%), url('https://i.postimg.cc/MGb3qpdT/Gemini-Generated-Image-mm5fkfmm5fkfmm5f.jpg');
-  background-blend-mode: overlay;
-  filter: none;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(243, 232, 255, 0.85)), url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 h1, h2, h3, h4, h5, h6, .font-heading {
@@ -52,13 +128,38 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: var(--font-mono);
 }
 
-/* Sleek Interface Glass Card */
-.glass {
-  background: var(--card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 1.5rem;
+/* Optimized Glassmorphism Panels */
+.glass-panel {
+  background: rgba(18, 18, 24, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* iOS 26 Liquid Glass Panels - GPU Accelerated */
+.ios-glass {
+  background: rgba(15, 20, 32, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.45);
+}
+
+.ios-glass-light {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 15px 35px -8px rgba(99, 102, 241, 0.12);
 }
 
 /* Sleek Interface Primary Button */
@@ -111,6 +212,122 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   background-size: 300% 300%;
   animation: borderRotate 4s ease infinite;
   box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
+}
+
+/* Telegram Floating Paper Plane Animation for Developer Card */
+@keyframes telegramFly1 {
+  0% {
+    transform: translate(-25px, 30px) rotate(-12deg) scale(0.8);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(35px, -25px) rotate(15deg) scale(1.15);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-25px, 30px) rotate(-12deg) scale(0.8);
+    opacity: 0.2;
+  }
+}
+
+@keyframes telegramFly2 {
+  0% {
+    transform: translate(30px, -20px) rotate(18deg) scale(0.85);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(-25px, 35px) rotate(-10deg) scale(1.2);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate(30px, -20px) rotate(18deg) scale(0.85);
+    opacity: 0.25;
+  }
+}
+
+@keyframes telegramGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(40, 168, 234, 0.4), 0 0 40px rgba(168, 85, 247, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(40, 168, 234, 0.8), 0 0 70px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.telegram-plane-anim-1 {
+  animation: telegramFly1 7s ease-in-out infinite;
+}
+
+.telegram-plane-anim-2 {
+  animation: telegramFly2 9s ease-in-out infinite;
+}
+
+/* Telegram Soaring Airplane Flight Animation for Developer Card */
+@keyframes telegramPlaneFlyAcross1 {
+  0% {
+    transform: translate(-80px, 140px) rotate(-30deg) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(360px, -180px) rotate(-30deg) scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes telegramPlaneFlyAcross2 {
+  0% {
+    transform: translate(-100px, 100px) rotate(-20deg) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.75;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(380px, -140px) rotate(-20deg) scale(1.05);
+    opacity: 0;
+  }
+}
+
+@keyframes telegramPlaneFlyAcross3 {
+  0% {
+    transform: translate(-60px, 180px) rotate(-40deg) scale(0.55);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(340px, -160px) rotate(-40deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.telegram-fly-soar-1 {
+  animation: telegramPlaneFlyAcross1 5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.telegram-fly-soar-2 {
+  animation: telegramPlaneFlyAcross2 7s cubic-bezier(0.25, 1, 0.5, 1) infinite 2s;
+}
+
+.telegram-fly-soar-3 {
+  animation: telegramPlaneFlyAcross3 6s cubic-bezier(0.25, 1, 0.5, 1) infinite 3.8s;
+}
+
+.telegram-border-glow {
+  animation: telegramGlowPulse 3.5s ease-in-out infinite;
 }
 
 /* Telegram Style Live Glowing Verified Badge */

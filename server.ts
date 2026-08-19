@@ -75,7 +75,30 @@ app.get("/api/download", async (req, res) => {
       thumbnail = "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80";
     }
 
-    const duration = rawData?.data?.duration || rawData?.duration || 0;
+    // Extract and normalize Duration securely
+    const rawDuration = rawData?.data?.duration || rawData?.duration || rawData?.meta?.duration || rawData?.lengthSeconds || rawData?.length_seconds || rawData?.duration_seconds || 0;
+    let duration = 0;
+    if (typeof rawDuration === 'string') {
+      if (rawDuration.includes(':')) {
+        const parts = rawDuration.split(':').map(p => parseFloat(p) || 0);
+        if (parts.length === 3) {
+          duration = parts[0] * 3600 + parts[1] * 60 + parts[2];
+        } else if (parts.length === 2) {
+          duration = parts[0] * 60 + parts[1];
+        }
+      } else {
+        duration = parseFloat(rawDuration) || 0;
+      }
+    } else if (typeof rawDuration === 'number') {
+      duration = rawDuration;
+    }
+
+    // Convert milliseconds to seconds if API returns duration in ms (e.g. > 24 hours / 86400s)
+    if (duration > 86400) {
+      duration = Math.floor(duration / 1000);
+    }
+    duration = Math.round(duration);
+
     const platform = rawData?.meta?.platform || detectPlatform(videoUrl);
 
     // Extract media formats array directly from API response
