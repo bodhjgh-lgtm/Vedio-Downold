@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import bgImage from './assets/bg.jpg';
 import { Navbar } from './components/Navbar';
 import { DeveloperCard } from './components/DeveloperCard';
 import { ResponseDisplay } from './components/ResponseDisplay';
@@ -357,7 +358,14 @@ export default function App() {
       isDarkMode ? 'bg-zinc-950/80 text-zinc-100' : 'bg-slate-50 text-slate-900'
     }`}>
       {/* Sleek Interface Hero Overlay Background & Glowing Ambient Orbs */}
-      <div className="hero-bg"></div>
+      <div 
+        className="hero-bg"
+        style={{
+          backgroundImage: isDarkMode 
+            ? `linear-gradient(to bottom, rgba(8, 6, 18, 0.45), rgba(8, 6, 18, 0.8)), url(${bgImage})`
+            : `linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(243, 232, 255, 0.85)), url(${bgImage})`
+        }}
+      ></div>
       <div className="glow-orb glow-orb-1"></div>
       <div className="glow-orb glow-orb-2"></div>
       <div className="glow-orb glow-orb-3"></div>
