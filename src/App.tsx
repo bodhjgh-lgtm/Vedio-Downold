@@ -354,15 +354,13 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-150 relative z-10 ${
-      isDarkMode ? 'bg-transparent text-zinc-100' : 'bg-slate-950/60 text-slate-100'
-    }`}>
-      {/* Sleek Interface Hero Overlay Background & Glowing Ambient Orbs */}
+    <div className="min-h-screen flex flex-col font-sans text-zinc-100 relative z-10 bg-transparent">
+      {/* Crisp Full-Screen Background Image Wallpaper */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
         <img 
           src={bgImage} 
           alt="App Background Wallpaper" 
-          className="w-full h-full object-cover object-center transform scale-105 transition-opacity duration-500"
+          className="w-full h-full object-cover object-center transition-opacity duration-300"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             if (target.src !== window.location.origin + '/bg.jpg') {
@@ -370,16 +368,9 @@ export default function App() {
             }
           }}
         />
-        {/* Soft atmospheric gradient tint over the image */}
-        <div className={`absolute inset-0 transition-colors duration-300 ${
-          isDarkMode 
-            ? 'bg-gradient-to-b from-black/20 via-purple-950/20 to-black/55' 
-            : 'bg-gradient-to-b from-white/40 via-purple-100/30 to-white/80'
-        }`} />
+        {/* Subtle dark tint so text is readable while wallpaper remains 100% crisp & vivid */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
       </div>
-      <div className="glow-orb glow-orb-1"></div>
-      <div className="glow-orb glow-orb-2"></div>
-      <div className="glow-orb glow-orb-3"></div>
       
       {/* Navigation Bar */}
       <Navbar

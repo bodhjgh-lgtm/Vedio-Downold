@@ -55,95 +55,32 @@ body {
 }
 
 .glow-orb {
-  position: fixed;
-  border-radius: 9999px;
-  filter: blur(50px);
-  -webkit-filter: blur(50px);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.4;
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  transition: opacity 0.2s ease;
-}
-
-.glow-orb-1 {
-  width: 450px;
-  height: 450px;
-  top: -80px;
-  left: -80px;
-  background: radial-gradient(circle, rgba(147, 51, 234, 0.5) 0%, rgba(126, 34, 206, 0.25) 60%, transparent 80%);
-  animation: floatOrb1 20s ease-in-out infinite;
-}
-
-.glow-orb-2 {
-  width: 480px;
-  height: 480px;
-  top: 35%;
-  right: -120px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(79, 70, 229, 0.25) 60%, transparent 80%);
-  animation: floatOrb2 24s ease-in-out infinite;
-}
-
-.glow-orb-3 {
-  width: 400px;
-  height: 400px;
-  bottom: -80px;
-  left: 20%;
-  background: radial-gradient(circle, rgba(192, 38, 211, 0.4) 0%, rgba(99, 102, 241, 0.25) 60%, transparent 80%);
-  animation: floatOrb3 22s ease-in-out infinite;
-}
-
-/* Light mode adjustment for glowing background orbs */
-html:not(.dark) .glow-orb {
-  opacity: 0.5;
-}
-
-/* Background image with GPU hardware acceleration and Vite bundled asset handling */
-.hero-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  will-change: opacity;
-  transform: translateZ(0);
-  transition: opacity 0.2s ease;
-}
-
-h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: var(--font-heading);
-}
-
-.font-mono {
-  font-family: var(--font-mono);
+  display: none;
 }
 
 /* Optimized Glassmorphism Panels */
 .glass-panel {
-  background: rgba(12, 8, 28, 0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 6, 22, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
 }
 
 .glass-panel-light {
   background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
 }
 
 /* iOS 26 Liquid Glass Panels - GPU Accelerated */
 .ios-glass {
-  background: rgba(12, 8, 28, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(10, 6, 22, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.45);
 }
 
