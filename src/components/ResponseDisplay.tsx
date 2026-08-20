@@ -201,10 +201,10 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
       </div>
 
       {/* Format Selector Tabs & Download Links */}
-      <div className="space-y-6 pt-4 border-t border-slate-800/50">
+      <div className="space-y-6 pt-4">
         
         {/* Interactive Format Switcher Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800/40">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
               Download Format:
@@ -212,7 +212,7 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
           </div>
 
           <div className={`p-1 rounded-2xl flex items-center gap-1 border w-full sm:w-auto ${
-            isDarkMode ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-200/80 border-slate-300'
+            isDarkMode ? 'bg-slate-900/40 backdrop-blur-xl border-slate-700/50' : 'bg-slate-200/50 backdrop-blur-md border-slate-300'
           }`}>
             <button
               onClick={() => setActiveMediaTab('video')}
